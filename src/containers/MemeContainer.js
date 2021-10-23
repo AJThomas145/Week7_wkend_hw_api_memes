@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import MemeList from '../components/MemeList';
-
+import MemeDetail from '../components/MemeDetail';
 
 
 const MemeContainer = () => {
     const [memes, setMemes] = useState([])
+    const [selectedMeme, setSelectedMeme] = useState(null)
 
     
 
@@ -17,13 +18,17 @@ const MemeContainer = () => {
 
     useEffect(fetchMemes, [])
 
-
+    const handleMemeSelect = (meme) => {
+        setSelectedMeme(meme)
+    }
 
 
 
     return(
         <div id="meme-container">
-        <MemeList memes={memes} />
+        <h1>Meme Selector</h1>
+        <MemeList memes={memes} onMemeSelect={handleMemeSelect} />
+        {selectedMeme ? <MemeDetail selectedMeme={selectedMeme} /> :null}
         </div>
     )
 }
