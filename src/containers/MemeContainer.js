@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import MemeList from '../components/MemeList';
 import MemeDetail from '../components/MemeDetail';
 import MemeSelector from '../components/MemeSelector';
+import FavouriteMemes from '../components/FavouriteMemes';
 import "./MemeContainer.css"
 
 
@@ -9,6 +10,7 @@ import "./MemeContainer.css"
 const MemeContainer = () => {
     const [memes, setMemes] = useState([])
     const [selectedMeme, setSelectedMeme] = useState(null)
+    const [favouriteMemes, setFavouriteMemes] = useState([])
 
     
 
@@ -29,6 +31,11 @@ const MemeContainer = () => {
         setSelectedMeme(meme);
     }
 
+    const addFavouriteMeme = () => {
+        const updatedFavs = [...favouriteMemes, selectedMeme];
+        setFavouriteMemes(updatedFavs)
+    }
+
 
 
     return(
@@ -36,7 +43,10 @@ const MemeContainer = () => {
         <u><h1>Meme Selector</h1></u>
         {/* <MemeList memes={memes} onMemeSelect={handleMemeSelect} /> */}
         <MemeSelector memes={memes} onMemeSelected={onMemeSelected} />
-        {selectedMeme ? <MemeDetail selectedMeme={selectedMeme} /> :null}
+        {selectedMeme ? <MemeDetail selectedMeme={selectedMeme} addFavouriteMeme={addFavouriteMeme} /> :null}
+        <br></br><br></br><br></br>
+        <h2>Favourite Memes</h2>
+        <FavouriteMemes favouriteMemes={favouriteMemes} />
         </div>
         
     )
