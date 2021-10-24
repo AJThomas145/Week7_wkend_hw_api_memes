@@ -10,7 +10,7 @@ import "./MemeContainer.css"
 const MemeContainer = () => {
     const [memes, setMemes] = useState([])
     const [selectedMeme, setSelectedMeme] = useState(null)
-    const [favouriteMemes, setFavouriteMemes] = useState([])
+    // const [favouriteMemes, setFavouriteMemes] = useState([])
 
     
 
@@ -23,30 +23,41 @@ const MemeContainer = () => {
 
     useEffect(fetchMemes, [])
 
-    const handleMemeSelect = (meme) => {
-        setSelectedMeme(meme)
+    // const handleMemeSelect = (meme) => {
+    //     setSelectedMeme(meme)
+    // }
+
+    const onMemeSelected = index => {
+        setSelectedMeme(index);
     }
 
-    const onMemeSelected = function(meme){
-        setSelectedMeme(meme);
-    }
+    // const addFavouriteMeme = () => {
+    //     const updatedFavs = [...favouriteMemes, selectedMeme];
+    //     setFavouriteMemes(updatedFavs)
+    // }
 
-    const addFavouriteMeme = () => {
-        const updatedFavs = [...favouriteMemes, selectedMeme];
-        setFavouriteMemes(updatedFavs)
+    const favouriteMemes = memes.filter(meme => meme.favourite)
+
+    const handleFavToggle = (index) => {
+        const updatedMemes = memes.map((meme) => {
+            if(meme.index === index){
+                meme.favourite = !meme.favourite
+            }
+            return meme
+        })
+        setMemes(updatedMemes)
     }
 
 
 
     return(
         <div id="meme-container">
-        <u><h1>Meme Selector</h1></u>
-        {/* <MemeList memes={memes} onMemeSelect={handleMemeSelect} /> */}
-        <MemeSelector memes={memes} onMemeSelected={onMemeSelected} />
-        {selectedMeme ? <MemeDetail selectedMeme={selectedMeme} addFavouriteMeme={addFavouriteMeme} /> :null}
-        <br></br><br></br><br></br>
-        <h2>Favourite Memes</h2>
-        <FavouriteMemes favouriteMemes={favouriteMemes} />
+            <u><h1>Meme Selector</h1></u>
+            {/* <MemeList memes={memes} onMemeSelect={handleMemeSelect} /> */}
+            <MemeSelector memes={memes} onMemeSelected={onMemeSelected} />
+            {selectedMeme ? <MemeDetail selectedMeme={selectedMeme} onFavToggle={handleFavToggle} /> :null}
+            <br></br><br></br>
+            <FavouriteMemes favouriteMemes={favouriteMemes} onMemeSelected={onMemeSelected}/>
         </div>
         
     )
