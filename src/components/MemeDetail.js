@@ -13,7 +13,7 @@ const MemeDetail = ({selectedMeme, onFavToggle}) => {
         <div>
             <h3>{selectedMeme.name}</h3>
             <img src = {selectedMeme.url} width="40%" height="50%"/>
-            <br></br><br></br>
+            <br></br>
             <button onClick={handleClick}>{favouriteButtonText}</button>
         </div>
     )

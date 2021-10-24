@@ -9,15 +9,15 @@ const FavouriteMemes = ({favouriteMemes, onMemeSelected}) => {
     return(
         <div>
             <h3>Favourite Memes</h3>
-            <ul>
+            <p>
             {favouriteMemes.map(meme => {
                 return (
-                    <li key={meme.index} onClick={() => onMemeSelected(meme.index)}>
+                    <ul key={meme.index} onClick={() => onMemeSelected(meme.index)}>
                     {meme.name}
-                    </li>
+                    </ul>
                 )
             })}
-            </ul>
+            </p>
         </div>
     )
 
